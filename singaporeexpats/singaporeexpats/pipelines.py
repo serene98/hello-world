@@ -17,7 +17,7 @@ class singaporeexpatsPipeline:
         )
         db = connection["expats"]
         self.collection = db["topics"]
-        # self.collection = db["posts"]
+        self.collection = db["posts"]
 
     def process_item(self, item, spider):
         valid = True
@@ -26,5 +26,6 @@ class singaporeexpatsPipeline:
                 valid = False
                 raise DropItem("Missing {0}!".format(data))
         if valid:
-            self.collection.insert_one(dict(item))
+            # self.collection.insert_one(dict(item))
+            self.db[spider.settings.get('COLLECTION_NAME')].insert_one(dict(item))
         return item
