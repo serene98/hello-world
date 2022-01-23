@@ -9,13 +9,13 @@ from itemadapter import ItemAdapter
 import pymongo
 
 
-class KiasuparentPipeline:
+class singaporeexpatsPipeline:
     def __init__(self):
         connection = pymongo.MongoClient(
             "localhost",
             27017
         )
-        db = connection["kiasuparent"]
+        db = connection["singaporeexpats"]
         self.collection = db["posts"]
 
     def process_item(self, item, spider):

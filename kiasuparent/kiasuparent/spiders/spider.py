@@ -1,8 +1,8 @@
 import scrapy
 
 
-class KiasuSpider(scrapy.Spider):
-    name = 'kiasuparent'
+class SingaporeExpats(scrapy.Spider):
+    name = 'singaporeexpats'
 
     start_urls = [
         'https://forum.singaporeexpats.com/viewforum.php?f=93',
@@ -10,16 +10,19 @@ class KiasuSpider(scrapy.Spider):
 
     def parse(self, response):
         for topic_list in response.xpath('//ul[has-class("topiclist topics")]'):
-            for topic in topic_list.xpath('li/dl/dt'):
+            for topic in topic_list.xpath('li/dl'):
                 yield {
-                    'topic': topic.xpath('div/a/text()').get(),
+                    'topic': topic.xpath('dt/div/a/text()').get(),
+                    'number_of_replies': topic.xpath('dd/[has-class="posts"]/text()').get(),
+                    'number_of_views': topic.xpath('dd/[has-class="views"]/text()').get()
                 }
                 yield response.follow(topic.xpath('div/a/@href').get(), \
                     self.parse)
 
-        for post in response.xpath('//div[has-class("page-body-inner")]/div/div[has-class("inner")]'):
+        for post in response.xpath('//div[has-class("post has-profile bg2")]/div/div[has-class("inner")]'):
             yield {
-                'author': post.xpath('//*[has-class("author")]/span/strong/a/text()').get(),
+                'topic': post.xpath('div[has-class="postbody")]/div/h3/a/text()').get(),
+                'author': post.xpath('dl[has-class("postprofile")]/dt/a/text()').get(),
                 'content': post.xpath('div[has-class("postbody")]/div/div[has-class("content")]/text()').get(),
             }
 
