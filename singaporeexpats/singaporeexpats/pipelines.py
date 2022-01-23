@@ -15,7 +15,7 @@ class singaporeexpatsPipeline:
             "localhost",
             27017
         )
-        db = connection["singaporeexpats"]
+        db = connection["expats"]
         self.collection = db["topics"]
         self.collection = db["posts"]
 
