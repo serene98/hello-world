@@ -26,6 +26,6 @@ class SingaporeExpats(scrapy.Spider):
                 'content': post.xpath('div[@class="postbody"]/div/div[has-class("content")]/text()').get(),
             }
 
-        # next_page = response.xpath('//li[has-class("arrow next")]/a/@href').get()
-        # if next_page is not None:
-        #     yield response.follow(next_page, self.parse)
+        next_page = response.xpath('//li[has-class("arrow next")]/a/@href').get()
+        if next_page is not None:
+            yield response.follow(next_page, self.parse)
