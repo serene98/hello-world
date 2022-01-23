@@ -17,7 +17,7 @@ class singaporeexpatsPipeline:
         )
         db = connection["expats"]
         self.collection = db["topics"]
-        self.collection = db["posts"]
+        # self.collection = db["posts"]
 
     def process_item(self, item, spider):
         valid = True
