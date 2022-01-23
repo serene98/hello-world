@@ -16,7 +16,7 @@ class SingaporeExpats(scrapy.Spider):
                     'number_of_replies': topic.xpath('dd[@class="posts"]/text()').get().strip(),
                     'number_of_views': topic.xpath('dd[@class="views"]/text()').get().strip(),
                 }
-                yield response.follow(topic.xpath('dt/div/a/@href').get(), 
+                yield response.follow(topic.xpath('dt/div/a/@href').get(), \
                     self.parse)
 
         for post in response.xpath('//div[has-class("post has-profile bg2")]/div/div[has-class("inner")]'):
@@ -26,6 +26,6 @@ class SingaporeExpats(scrapy.Spider):
                 'content': post.xpath('div[@class="postbody"]/div/div[has-class("content")]/text()').get(),
             }
 
-        next_page = response.xpath('//li[has-class("arrow next")]/a/@href').get()
-        if next_page is not None:
-            yield response.follow(next_page, self.parse)
+        # next_page = response.xpath('//li[has-class("arrow next")]/a/@href').get()
+        # if next_page is not None:
+        #     yield response.follow(next_page, self.parse)
