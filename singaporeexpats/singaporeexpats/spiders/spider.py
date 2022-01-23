@@ -13,17 +13,17 @@ class SingaporeExpats(scrapy.Spider):
             for topic in topic_list.xpath('li/dl'):
                 yield {
                     'topic': topic.xpath('dt/div/a/text()').get(),
-                    'number_of_replies': topic.xpath('dd[@class("posts")]/text()').get(),
-                    'number_of_views': topic.xpath('dd[@class("views")]/text()').get(),
+                    'number_of_replies': topic.xpath('dd[@class="posts"]/text()').get().strip(),
+                    'number_of_views': topic.xpath('dd[@class="views"]/text()').get().strip(),
                 }
-                yield response.follow(topic.xpath('div/a/@href').get(), \
+                yield response.follow(topic.xpath('dt/div/a/@href').get(), 
                     self.parse)
 
         for post in response.xpath('//div[has-class("post has-profile bg2")]/div/div[has-class("inner")]'):
             yield {
-                'topic': post.xpath('div[@class("postbody")]/div/h3/a/text()').get(),
-                'author': post.xpath('dl[@("postprofile")]/dt/a/text()').get(),
-                'content': post.xpath('div[@("postbody")]/div/div[has-class("content")]/text()').get(),
+                'topic': post.xpath('div[@class="postbody"]/div/h3/a/text()').get(),
+                'author': post.xpath('dl[@class="postprofile"]/dt/a/text()').get(),
+                'content': post.xpath('div[@class="postbody"]/div/div[has-class("content")]/text()').get(),
             }
 
         next_page = response.xpath('//li[has-class("arrow next")]/a/@href').get()
