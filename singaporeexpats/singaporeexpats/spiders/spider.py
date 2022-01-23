@@ -19,7 +19,7 @@ class SingaporeExpats(scrapy.Spider):
                 yield response.follow(topic.xpath('dt/div/a/@href').get(), \
                     self.parse)
 
-        for post in response.xpath('//div[has-class("post has-profile bg2")]/div/div[has-class("inner")]'):
+        for post in response.xpath('//div[has-class("page-body")]/div[has-class("post has-profile bg2")]/div[has-class("inner")]'):
             yield {
                 'topic': post.xpath('div[@class="postbody"]/div/h3/a/text()').get(),
                 'author': post.xpath('dl[@class="postprofile"]/dt/a/text()').get(),
