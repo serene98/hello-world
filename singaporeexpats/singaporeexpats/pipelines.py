@@ -16,6 +16,7 @@ class singaporeexpatsPipeline:
             27017
         )
         db = connection["singaporeexpats"]
+        self.collection = db["topics"]
         self.collection = db["posts"]
 
     def process_item(self, item, spider):
