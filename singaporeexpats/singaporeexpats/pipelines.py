@@ -26,6 +26,5 @@ class singaporeexpatsPipeline:
                 valid = False
                 raise DropItem("Missing {0}!".format(data))
         if valid:
-            # self.collection.insert_one(dict(item))
-            self.db[spider.settings.get('COLLECTION_NAME')].insert_one(dict(item))
+            self.collection.insert_one(dict(item))
         return item

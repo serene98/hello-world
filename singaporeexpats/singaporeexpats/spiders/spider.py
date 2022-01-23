@@ -8,10 +8,6 @@ class SingaporeExpats(scrapy.Spider):
         'https://forum.singaporeexpats.com/viewforum.php?f=93',
     ]
 
-    custom_settings = {
-    'COLLECTION_NAME' : 'topics'
-    }
-
     def parse(self, response):
         for topic_list in response.xpath('//ul[has-class("topiclist topics")]'):
             for topic in topic_list.xpath('li/dl'):
