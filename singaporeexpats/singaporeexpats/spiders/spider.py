@@ -14,7 +14,7 @@ class SingaporeExpats(scrapy.Spider):
                 yield {
                     'topic': topic.xpath('dt/div/a/text()').get(),
                     'number_of_replies': topic.xpath('dd[@class("posts")]/text()').get(),
-                    'number_of_views': topic.xpath('dd[@class("views")]/text()').get()
+                    'number_of_views': topic.xpath('dd[@class("views")]/text()').get(),
                 }
                 yield response.follow(topic.xpath('div/a/@href').get(), \
                     self.parse)
