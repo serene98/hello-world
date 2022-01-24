@@ -19,7 +19,7 @@ class SingaporeExpats(scrapy.Spider):
                     self.parse)
 
         for post in response.xpath('//div[has-class("page-body")]/div[has-class("post has-profile bg2")]/div[has-class("inner")]'):
-            content_list = post.xpath('//div[@class="postbody"]//div//div[has-class("content")]//text()').getall()
+            content_list = post.xpath('//div[@class="postbody"]//div//div[@class="content"]//text()').getall()
             content = " ".join(content_list)
             content = content.replace('\n', '')
             content = content.replace('\t', '')
