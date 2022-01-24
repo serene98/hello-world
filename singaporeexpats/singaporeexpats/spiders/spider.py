@@ -8,7 +8,7 @@ class SingaporeExpats(scrapy.Spider):
     ]
 
     def parse(self, response):
-        for topic_list in response.xpath('//ul[has-class("topiclist topics")]'):
+        for topic_list in response.xpath('//*[@id="page-body"]/div[6]/div/ul[2]'):
             for topic in topic_list.xpath('li/dl'):
                 yield {
                     'topic': topic.xpath('dt/div/a/text()').get(),
