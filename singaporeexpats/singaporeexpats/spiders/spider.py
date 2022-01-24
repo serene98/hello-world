@@ -1,6 +1,5 @@
 import scrapy
 
-
 class SingaporeExpats(scrapy.Spider):
     name = 'singaporeexpats'
 
@@ -20,10 +19,15 @@ class SingaporeExpats(scrapy.Spider):
                     self.parse)
 
         for post in response.xpath('//div[has-class("page-body")]/div[has-class("post has-profile bg2")]/div[has-class("inner")]'):
+            content_list = post.xpath('//div[@class="postbody"]//div//div[has-class("content")]//text()').getall()
+            content = " ".join(content_list)
+            content = content.replace('\n', '')
+            content = content.replace('\t', '')
+
             yield {
                 'topic': post.xpath('div[@class="postbody"]/div/h3/a/text()').get(),
                 'author': post.xpath('dl[@class="postprofile"]/dt/a/text()').get(),
-                'content': post.xpath('div[@class="postbody"]/div/div[has-class("content")]/text()').get(),
+                'content': content,
             }
 
         next_page = response.xpath('//li[has-class("arrow next")]/a/@href').get()
