@@ -18,7 +18,7 @@ class SingaporeExpats(scrapy.Spider):
                 yield response.follow(topic.xpath('dt/div/a/@href').get(), \
                     self.parse)
 
-        for post in response.xpath('//div[has-class("page-body")]/div[has-class("post has-profile bg2")]/div'):
+        for post in response.xpath('//div[has-class("page-body")]/div[has-class("post has-profile")]/div'):
             content_list = post.xpath('div[@class="postbody"]/div/div[@class="content"]/text()').getall()
             content = " ".join(content_list)
             content = content.replace('\n', '')
