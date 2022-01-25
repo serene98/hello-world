@@ -8,7 +8,6 @@
 from itemadapter import ItemAdapter
 import pymongo
 
-
 class singaporeexpatsPipeline:
     def __init__(self):
         connection = pymongo.MongoClient(
@@ -16,15 +15,18 @@ class singaporeexpatsPipeline:
             27017
         )
         db = connection["expats"]
-        self.collection = db["topics"]
-        self.collection = db["posts"]
+        self.collection = db
 
     def process_item(self, item, spider):
         valid = True
+
         for data in item:
             if not data:
                 valid = False
                 raise DropItem("Missing {0}!".format(data))
         if valid:
-            self.collection.insert_one(dict(item))
+            if "topic" in item and "number_of_replies" in item and "number_of_views" in item:
+                self.collection["topics"].insert_one(dict(item))
+            else:
+                self.collection["posts"].insert_one(dict(item))
         return item
