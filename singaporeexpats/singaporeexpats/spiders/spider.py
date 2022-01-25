@@ -18,7 +18,7 @@ class SingaporeExpats(scrapy.Spider):
                 yield response.follow(topic.xpath('dt/div/a/@href').get(), \
                     self.parse)
 
-        for post in response.xpath('//div[has-class("page-body")]/div[has-class("post has-profile bg2")]/div[has-class("inner")]'):
+        for post in response.xpath('//div[has-class("page-body")]/div[has-class("post has-profile bg2")]/div'):
             content_list = post.xpath('div[@class="postbody"]/div/div[@class="content"]/text()').getall()
             content = " ".join(content_list)
             content = content.replace('\n', '')
@@ -33,3 +33,7 @@ class SingaporeExpats(scrapy.Spider):
             next_page = response.xpath('//li[has-class("arrow next")]/a/@href').get()
             if next_page is not None:
                 yield response.follow(next_page, self.parse)
+                
+        next_page = response.xpath('//li[has-class("arrow next")]/a/@href').get()
+        if next_page is not None:
+            yield response.follow(next_page, self.parse)
