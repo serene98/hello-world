@@ -25,7 +25,7 @@ class SingaporeExpats(scrapy.Spider):
             content = content.replace('\t', '')
 
             yield {
-                'topic': post.xpath('div[@class="postbody"]/div/h3/a/text()').get(),
+                'topic': post.xpath('div[@class="postbody"]/h2/a/text()').get(),
                 'author': post.xpath('dl[@class="postprofile"]/dt/a/text()').get(),
                 'content': content,
             }
